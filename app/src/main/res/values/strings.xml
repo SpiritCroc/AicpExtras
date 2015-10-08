@@ -18,4 +18,5 @@
     <string name="builtin_title">BUILT-IN</string>
     <string name="addons_title">ADDONS</string>
     <string name="welcome_title">WELCOME\nto the real world!!!</string>
+    <string name="logo">logo</string>
 </resources>
