@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         // update highlighted item in the navigation menu
-        item.setCheckable(true);
         item.setChecked(true);
         id = item.getItemId();
         Fragment fragment = null;
@@ -134,7 +133,6 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
 
         // Highlight the selected item, update the title, and close the drawer
-        item.setCheckable(true);
         item.setChecked(true);
         setTitle(item.getTitle());
         mDrawer.closeDrawers();

@@ -7,27 +7,33 @@
             <item android:id="@+id/nav_display_animations"
                 android:icon="@android:drawable/ic_menu_slideshow"
                 android:title="@string/display_animations_title"
-                style="TextAppearance.AppCompat.Body1"/>
+                style="TextAppearance.AppCompat.Body1"
+                android:checkable="true"/>
             <item android:id="@+id/nav_headsup"
                 android:icon="@android:drawable/ic_menu_slideshow"
                 android:title="@string/headsup_title"
-                style="TextAppearance.AppCompat.Body1"/>
+                style="TextAppearance.AppCompat.Body1"
+                android:checkable="true"/>
             <item android:id="@+id/nav_notif_drawer"
                 android:icon="@android:drawable/ic_menu_slideshow"
                 android:title="@string/notificaitons_title"
-                style="TextAppearance.AppCompat.Body1"/>
+                style="TextAppearance.AppCompat.Body1"
+                android:checkable="true"/>
             <item android:id="@+id/nav_recents"
                 android:icon="@android:drawable/ic_menu_slideshow"
                 android:title="@string/recents_panel_title"
-                style="TextAppearance.AppCompat.Body1"/>
+                style="TextAppearance.AppCompat.Body1"
+                android:checkable="true"/>
             <item android:id="@+id/nav_statusbar"
                 android:icon="@android:drawable/ic_menu_slideshow"
                 android:title="@string/statubar_title"
-                style="TextAppearance.AppCompat.Body1"/>
+                style="TextAppearance.AppCompat.Body1"
+                android:checkable="true"/>
             <item android:id="@+id/nav_various"
                 android:icon="@android:drawable/ic_menu_slideshow"
                 android:title="@string/various_shit_title"
-                style="TextAppearance.AppCompat.Body1"/>
+                style="TextAppearance.AppCompat.Body1"
+                android:checkable="true"/>
         </menu>
     </item>
 
@@ -37,7 +43,8 @@
             <item android:id="@+id/nav_about"
                 android:icon="@android:drawable/ic_menu_share"
                 android:title="@string/about_title"
-                style="TextAppearance.AppCompat.Body1" />
+                style="TextAppearance.AppCompat.Body1"
+                android:checkable="true"/>
         </menu>
     </item>
 
