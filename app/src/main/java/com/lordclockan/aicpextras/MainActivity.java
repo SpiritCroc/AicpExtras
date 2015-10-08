@@ -98,14 +98,23 @@ public class MainActivity extends AppCompatActivity
         Class fragmentClass;
 
         switch(id) {
-            case R.id.nav_ui:
-                fragmentClass = UiFragment.class;
+            case R.id.nav_display_animations:
+                fragmentClass = DisplayAnimationsFragment.class;
                 break;
-            case R.id.nav_builtin:
-                fragmentClass = BuiltInFragment.class;
+            case R.id.nav_headsup:
+                fragmentClass = HeadsUpFragment.class;
                 break;
-            case R.id.nav_addons:
-                fragmentClass = AddonsFragment.class;
+            case R.id.nav_notif_drawer:
+                fragmentClass = NotificationsFragment.class;
+                break;
+            case R.id.nav_recents:
+                fragmentClass = RecentsPanelFragment.class;
+                break;
+            case R.id.nav_statusbar:
+                fragmentClass = StatusBarFragment.class;
+                break;
+            case R.id.nav_various:
+                fragmentClass = VariousShitFragment.class;
                 break;
             case R.id.nav_about:
                 fragmentClass = AboutFragment.class;

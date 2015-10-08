@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 /**
  * Created by lord on 07.10.15..
  */
-public class UiFragment extends Fragment {
+public class NotificationsFragment extends Fragment {
 
     View myView;
     @Nullable

@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 /**
  * Created by lord on 07.10.15..
  */
-public class AddonsFragment extends Fragment {
+public class VariousShitFragment extends Fragment {
 
     View myView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.addons_layout, container, false);
+        myView = inflater.inflate(R.layout.ui_layout, container, false);
         return myView;
     }
 }
