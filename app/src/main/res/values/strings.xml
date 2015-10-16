@@ -24,4 +24,5 @@
     <string name="notificaitons_title">Notification drawer</string>
     <string name="recents_panel_title">Recents panel</string>
     <string name="statubar_title">Status bar</string>
+    <string name="toast_test_switch_title">Toast test switch</string>
 </resources>
