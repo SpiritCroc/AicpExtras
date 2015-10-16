@@ -17,11 +17,48 @@
         android:textSize="16sp"
         style="TextAppearance.AppCompat.Body1"
         android:text="@string/g_community"
-        android:clickable="true" />
+        android:clickable="true"
+        android:enabled="true" />
 
     <View
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B6B6B6" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAicpDownloads"
+        android:layout_gravity="center_horizontal"
+        android:textSize="16sp"
+        style="TextAppearance.AppCompat.Body1"
+        android:text="@string/aicp_downloads_title"
+        android:clickable="true"
+        android:enabled="true" />
+
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B6B6B6" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAicpGerrit"
+        android:layout_gravity="center_horizontal"
+        android:textSize="16sp"
+        style="TextAppearance.AppCompat.Body1"
+        android:text="@string/aicp_gerrit_title"
+        android:clickable="true"
+        android:enabled="true" />
+
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#B6B6B6" />

@@ -25,4 +25,6 @@
     <string name="recents_panel_title">Recents panel</string>
     <string name="statubar_title">Status bar</string>
     <string name="toast_test_switch_title">Toast test switch</string>
+    <string name="aicp_downloads_title">Downloads</string>
+    <string name="aicp_gerrit_title">Gerrit</string>
 </resources>

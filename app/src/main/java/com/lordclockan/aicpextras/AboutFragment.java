@@ -38,5 +38,29 @@ public class AboutFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        TextView mAicpDownloads = (TextView) myView.findViewById(R.id.tvAicpDownloads);
+        mAicpDownloads.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                String url = "http://dwnld.aicp-rom.com";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        TextView mAicpGerrit = (TextView) myView.findViewById(R.id.tvAicpGerrit);
+        mAicpGerrit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                String url = "http://gerrit.aicp-rom.com/#/q/status:open";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
     }
 }
