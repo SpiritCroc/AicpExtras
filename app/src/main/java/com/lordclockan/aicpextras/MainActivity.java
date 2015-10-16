@@ -1,5 +1,6 @@
 package com.lordclockan.aicpextras;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -40,8 +41,16 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                Intent emailIntent =
+                        new Intent(Intent.ACTION_SEND);
+                String[] recipients = new String[]{"davor@losinj.com", "",};
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "AICP talk");
+                emailIntent.setType("text/plain");
+                startActivity(Intent.createChooser(emailIntent, getString(R.string.send_mail_intent)));
+                finish();
             }
         });
 

@@ -2,9 +2,7 @@ package com.lordclockan.aicpextras;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
@@ -47,12 +45,12 @@ public class DisplayAnimationsActivity extends Fragment {
 
                 mTestCheck = (SwitchPreference) findPreference(TEST_CHECK);
 
-                addListenerOnSwitch();
+                addListenerOnTestSwitch();
 
 
             }
 
-            public void addListenerOnSwitch() {
+            public void addListenerOnTestSwitch() {
                 mTestCheck.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {

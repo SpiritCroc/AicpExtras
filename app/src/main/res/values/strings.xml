@@ -27,4 +27,5 @@
     <string name="toast_test_switch_title">Toast test switch</string>
     <string name="aicp_downloads_title">Downloads</string>
     <string name="aicp_gerrit_title">Gerrit</string>
+    <string name="send_mail_intent">Send mail...</string>
 </resources>
