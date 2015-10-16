@@ -3,6 +3,7 @@ package com.lordclockan.aicpextras;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
@@ -26,8 +27,10 @@ public class DisplayAnimationsActivity extends Fragment {
             }
 
             private String TEST_CHECK = "test_check";
+            private String FUCK_AMOUNT = "fuck_amount";
 
             private SwitchPreference mTestCheck;
+            private ListPreference mFuckAmount;
 
 
 
@@ -45,12 +48,16 @@ public class DisplayAnimationsActivity extends Fragment {
 
                 mTestCheck = (SwitchPreference) findPreference(TEST_CHECK);
 
-                addListenerOnTestSwitch();
+                mFuckAmount = (ListPreference) findPreference(FUCK_AMOUNT);
+                mFuckAmount.setSummary(mFuckAmount.getEntry());
+
+                addListener();
+
 
 
             }
 
-            public void addListenerOnTestSwitch() {
+            public void addListener() {
                 mTestCheck.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -61,6 +68,20 @@ public class DisplayAnimationsActivity extends Fragment {
                             } else {
                                 Toast.makeText(getActivity(), "CheckBox is OFF", Toast.LENGTH_SHORT).show();
                             }
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+
+                mFuckAmount.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        if (preference == mFuckAmount) {
+                            //int fuckAmount = Integer.valueOf((String) newValue);
+                            int index = mFuckAmount.findIndexOfValue((String) newValue);
+                            mFuckAmount.setSummary(mFuckAmount.getEntries()[index]);
+                            Toast.makeText(getActivity(), mFuckAmount.getSummary(), Toast.LENGTH_SHORT).show();
                             return true;
                         }
                         return false;

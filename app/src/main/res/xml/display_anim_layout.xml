@@ -10,10 +10,10 @@
         android:summary="This option if selected will allow the application to check for latest versions."
         android:key="test_check" />
     <ListPreference
-        android:title="Download Details"
-        android:summary="Select the kind of data that you would like to download"
-        android:key="downloadType"
-        android:defaultValue="1"
-        android:entries="@array/listArray"
-        android:entryValues="@array/listValues" />
+        android:title="Amount of fucks given"
+        android:summary="Select the amount of fucks you want to give"
+        android:key="fuck_amount"
+        android:defaultValue="0"
+        android:entries="@array/amountArray"
+        android:entryValues="@array/amountValues" />
 </PreferenceScreen>

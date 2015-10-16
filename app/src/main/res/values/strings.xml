@@ -28,4 +28,8 @@
     <string name="aicp_downloads_title">Downloads</string>
     <string name="aicp_gerrit_title">Gerrit</string>
     <string name="send_mail_intent">Send mail...</string>
+
+    <string name="fuck_amount_0">ZERO</string>
+    <string name="fuck_amount_1">ONE</string>
+    <string name="fuck_amount_world">FU WORLD!!!</string>
 </resources>
