@@ -37,12 +37,12 @@ public class MainActivity extends AppCompatActivity
         tx.replace(R.id.content_main, new AboutFragment());
         tx.commit();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 Intent emailIntent =
                         new Intent(Intent.ACTION_SEND);
                 String[] recipients = new String[]{"davor@losinj.com", "",};
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(Intent.createChooser(emailIntent, getString(R.string.send_mail_intent)));
                 finish();
             }
-        });
+        });*/
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

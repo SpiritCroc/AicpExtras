@@ -16,9 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:textSize="16sp"
         style="TextAppearance.AppCompat.Body1"
-        android:text="@string/g_community"
-        android:clickable="true"
-        android:enabled="true" />
+        android:text="@string/g_community" />
 
     <View
         android:layout_marginTop="8dp"
@@ -34,9 +32,7 @@
         android:layout_gravity="center_horizontal"
         android:textSize="16sp"
         style="TextAppearance.AppCompat.Body1"
-        android:text="@string/aicp_downloads_title"
-        android:clickable="true"
-        android:enabled="true" />
+        android:text="@string/aicp_downloads_title" />
 
     <View
         android:layout_marginTop="8dp"
@@ -52,9 +48,7 @@
         android:layout_gravity="center_horizontal"
         android:textSize="16sp"
         style="TextAppearance.AppCompat.Body1"
-        android:text="@string/aicp_gerrit_title"
-        android:clickable="true"
-        android:enabled="true" />
+        android:text="@string/aicp_gerrit_title" />
 
     <View
         android:layout_marginTop="8dp"
