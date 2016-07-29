@@ -56,8 +56,8 @@ public class StatusBarFragment extends Fragment {
         @Override
         public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
             if (preference == mTraffic) {
-                Intent intent = new Intent(getActivity(), Traffic.class);
-                getActivity().startActivity(intent);
+                //Intent intent = new Intent(getActivity(), Traffic.class);
+                //getActivity().startActivity(intent);
             } else {
                 return super.onPreferenceTreeClick(preferenceScreen, preference);
             }

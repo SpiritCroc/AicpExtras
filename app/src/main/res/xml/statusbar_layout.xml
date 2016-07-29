@@ -17,4 +17,8 @@
         android:key="statusbar_weather"
         android:title="@string/status_bar_temperature_title" />
 
+    <Preference
+        android:key="stats_aicp"
+        android:title="@string/stats_title" />
+
 </PreferenceScreen>
