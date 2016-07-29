@@ -2,9 +2,9 @@
 <resources>
     <color name="colorPrimary">#ffab00</color>
     <color name="colorPrimaryDark">#ff8f00</color>
-    <color name="line_color">#B6B6B6</color>
-    <color name="colorAccent"> #3f51b5</color>
+    <color name="colorAccent">#3f51b5</color>
     <color name="overlayBackground">#00ffffff</color>
+    <color name="itemIconTint">#ffab00</color>
 
     <color name="background_material_dark">#FF303030</color>
     <color name="foreground_material_dark">#FFFFFFFF</color>
