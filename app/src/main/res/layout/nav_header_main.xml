@@ -7,13 +7,12 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/nav_header_logo"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:contentDescription="@string/logo"
         android:src="@drawable/ic_qs_aicp_panel_logo"
-        android:tint="@color/itemIconTint"
-        android:cropToPadding="false" />
+        android:tint="@color/itemIconTint" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,17 +20,17 @@
         android:orientation="vertical"
         android:layout_gravity="center_vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/aicp_extras_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/aicp_extras_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pun_title" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pun_title" />
 
     </LinearLayout>
 
