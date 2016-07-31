@@ -1,5 +1,7 @@
 package com.lordclockan.aicpextras;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -18,6 +20,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity
