@@ -1,8 +1,6 @@
 package com.lordclockan.aicpextras;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,14 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity
@@ -72,6 +63,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
     }
 
 
@@ -101,6 +94,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, ChangeLogActivity.class);
+            this.startActivity(intent);
             return true;
         }
 
