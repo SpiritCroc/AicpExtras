@@ -1,15 +1,13 @@
 package com.lordclockan.aicpextras;
 
-import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-//import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.Fragment;
+
+//import android.os.SystemProperties;
 
 public class StatusBarFragment extends Fragment {
 

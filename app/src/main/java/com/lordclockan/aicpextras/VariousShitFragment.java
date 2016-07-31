@@ -3,13 +3,9 @@ package com.lordclockan.aicpextras;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 public class VariousShitFragment extends Fragment {
 

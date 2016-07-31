@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
 import com.lordclockan.aicpextras.R;
 
 public class AnimBarPreference extends Preference
