@@ -2,16 +2,19 @@ package com.lordclockan.aicpextras.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.preference.Preference;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 
 import com.lordclockan.aicpextras.R;
 
+import static com.lordclockan.aicpextras.R.id.text;
 import static com.lordclockan.aicpextras.R.id.textView;
 
 public class SeekBarPreferenceCham extends Preference implements OnSeekBarChangeListener {
@@ -45,6 +49,7 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
 
     private TextView mStatusText;
     private TextView textView;
+    private boolean added = false;
 
     public SeekBarPreferenceCham(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -150,8 +155,10 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
                 }
             });
             mProgressThumb = mSeekBar.getThumb();
-            textView = (TextView) layout.findViewById(R.id.value);
-            textView.setVisibility(View.GONE);
+            //textView = (TextView) layout.findViewById(R.id.value);
+            //textView.setVisibility(View.GONE);
+            textView = new TextView(getContext());
+            textView.setTextSize(30);
         }
         catch(Exception e)
         {
@@ -236,19 +243,32 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
         }
 
         if (fromUser) {
-            textView.setVisibility(View.VISIBLE);
+            //textView.setVisibility(View.VISIBLE);
             RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
-            p.addRule(RelativeLayout.ABOVE, seekBar.getId());
+            //p.addRule(RelativeLayout.ABOVE, seekBar.getId());
             Rect thumbRect = getSeekBarThumb().getBounds();
-            p.setMargins(
-                    thumbRect.centerX() + 76, 0, 0, 0);
-            textView.setLayoutParams(p);
+            //p.setMargins(
+            //        thumbRect.centerX() + 76, 0, 0, 0);
+            //textView.setLayoutParams(p);
             textView.setText(mUnitsLeft + String.valueOf(progress) + mUnitsRight);
+            WindowManager.LayoutParams wp = new WindowManager.LayoutParams(WindowManager.LayoutParams.FIRST_SUB_WINDOW);
+            wp.format = PixelFormat.RGBA_8888;
+            wp.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+            //wp.gravity = Gravity.CENTER;
+            wp.x = thumbRect.centerX();
+            wp.y = thumbRect.centerY();
+            //wp.horizontalMargin = 0.4f;
+            //wp.verticalMargin = 0.4f;
+            if (!added)
+                ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).addView(textView, wp);
+            added = true;
+            textView.setLayoutParams(wp);
+            textView.invalidate();
             persistInt(newValue);
         } else {
-            textView.setVisibility(View.GONE);
+            //textView.setVisibility(View.GONE);
         }
     }
 
