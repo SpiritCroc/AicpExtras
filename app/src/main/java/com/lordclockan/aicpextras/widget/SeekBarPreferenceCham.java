@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.preference.Preference;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lordclockan.aicpextras.R;
 
@@ -42,6 +44,7 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
     private ImageView mImagePlus;
     private ImageView mImageMinus;
     private Drawable mProgressThumb;
+    private Toast toast;
 
     private TextView mStatusText;
     private TextView textView;
@@ -236,19 +239,40 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
         }
 
         if (fromUser) {
-            textView.setVisibility(View.VISIBLE);
+            //textView.setVisibility(View.VISIBLE);
             RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
             p.addRule(RelativeLayout.ABOVE, seekBar.getId());
             Rect thumbRect = getSeekBarThumb().getBounds();
+            /*
             p.setMargins(
                     thumbRect.centerX() + 76, 0, 0, 0);
             textView.setLayoutParams(p);
             textView.setText(mUnitsLeft + String.valueOf(progress) + mUnitsRight);
+            */
+            //if (toast != null) {
+            //    toast.cancel();
+            //}
+            if (toast == null) {
+                toast = Toast.makeText(getContext(), "", Toast.LENGTH_LONG);
+            }
+            toast.setText(mUnitsLeft + String.valueOf(progress) + mUnitsRight);
+            toast.setGravity(Gravity.LEFT, thumbRect.centerX(), thumbRect.centerY());
+            //toast.cancel();
+            //toast.getView().post(new Runnable() {
+            //    @Override
+            //    public void run() {
+            //        toast.show();
+            //    }
+            //});
+            toast.show();
             persistInt(newValue);
         } else {
-            textView.setVisibility(View.GONE);
+            //textView.setVisibility(View.GONE);
+            if (toast != null) {
+                toast.cancel();
+            }
         }
     }
 
@@ -258,6 +282,9 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         notifyChanged();
+        if (toast != null) {
+            toast.cancel();
+        }
     }
 
     @Override
