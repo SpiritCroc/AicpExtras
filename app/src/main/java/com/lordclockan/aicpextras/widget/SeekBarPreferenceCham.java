@@ -243,7 +243,7 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
             p.addRule(RelativeLayout.ABOVE, seekBar.getId());
             Rect thumbRect = getSeekBarThumb().getBounds();
             p.setMargins(
-                    thumbRect.centerX() + 76, 0, 0, 0);
+                    thumbRect.centerX() + 76, -40, 0, 0);
             textView.setLayoutParams(p);
             textView.setText(mUnitsLeft + String.valueOf(progress) + mUnitsRight);
             persistInt(newValue);
