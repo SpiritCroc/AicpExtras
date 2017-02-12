@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aicpextras="http://schemas.android.com/apk/res/com.lordclockan.aicpextras">
 
     <Preference
         android:key="traffic"
@@ -20,5 +21,14 @@
     <Preference
         android:key="stats_aicp"
         android:title="@string/stats_title" />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham
+        android:key="network_traffic_autohide_threshold"
+        android:title="@string/network_traffic_autohide_threshold"
+        android:max="100"
+        aicpextras:minimum="0"
+        aicpextras:unitsLeft=""
+        aicpextras:unitsRight="kB/s"
+        android:persistent="false" />
 
 </PreferenceScreen>

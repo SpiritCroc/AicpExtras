@@ -1,8 +1,15 @@
 package com.lordclockan.aicpextras;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,8 +18,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 
@@ -20,13 +31,17 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String NAV_ITEM_ID = "navItemId";
+    private static final String TAG = "AicpExtras";
 
     private DrawerLayout mDrawer;
     private int id;
+    private ImageView mNavHeaderLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppThemeRed);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,10 +78,48 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        navigationView.getBackground().setAlpha(178);
+        navigationView.setBackgroundColor(getResources().getColor(R.color.navDrawerBg, getTheme()));
+
+
+        //navigationView.getHeaderView(0).findViewById(R.id.nav_header_layout).getBackground().setAlpha(50);
+
+        String checkedColor = "#" + Settings.System.getInt(this.getApplicationContext().getContentResolver(),
+                Settings.System.END_BUTTON_BEHAVIOR, 3);
+
+        Log.v(TAG, checkedColor);
+
+        // FOR NAVIGATION VIEW ITEM TEXT COLOR
+        int[][] states = new int[][]{
+                new int[]{-android.R.attr.state_checked},  // unchecked
+                new int[]{android.R.attr.state_checked},   // checked
+                new int[]{}                                // default
+        };
+
+        // Fill in color corresponding to state defined in state
+        int[] colors = new int[]{
+                Color.parseColor("#" + Integer.toHexString(getResources().getColor(R.color.navDrawerText, null))),
+                Color.parseColor("#" + Integer.toHexString(getResources().getColor(R.color.navDrawerTextChecked, null))),
+                Color.parseColor("#" + Integer.toHexString(getResources().getColor(R.color.navDrawerText, null))),
+        };
+
+        ColorStateList navigationViewColorStateList = new ColorStateList(states, colors);
+
+        // apply to text color
+        navigationView.setItemTextColor(navigationViewColorStateList);
+        // apply to icon color
+        navigationView.setItemIconTintList(navigationViewColorStateList);
+
+        int colorAccent = getResources().getColor(R.color.colorAccent, null);
+
+        navigationView.getHeaderView(0).findViewById(R.id.nav_header_layout).getBackground().setColorFilter(0xff456333, PorterDuff.Mode.SRC_ATOP);
+
+        /*if (navigationView != null) {
+            mNavHeaderLogo.setBackgroundColor(colorAccent);
+        }*/
 
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -94,7 +147,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, ChangeLogActivity.class);
+            Intent intent = new Intent(this, SettingsActivity.class);
             this.startActivity(intent);
             return true;
         }

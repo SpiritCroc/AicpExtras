@@ -1,6 +1,8 @@
 package com.lordclockan.aicpextras;
 
 import android.content.ContentResolver;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -60,6 +62,11 @@ public class StatusBarFragment extends Fragment {
                 return super.onPreferenceTreeClick(preferenceScreen, preference);
             }
             return false;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
         }
     }
 }

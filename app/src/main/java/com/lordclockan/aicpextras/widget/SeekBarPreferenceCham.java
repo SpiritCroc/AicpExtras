@@ -2,6 +2,9 @@ package com.lordclockan.aicpextras.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.preference.Preference;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -9,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -16,12 +20,14 @@ import android.widget.TextView;
 
 import com.lordclockan.aicpextras.R;
 
+import static com.lordclockan.aicpextras.R.id.textView;
+
 public class SeekBarPreferenceCham extends Preference implements OnSeekBarChangeListener {
 
     private final String TAG = getClass().getName();
 
     private static final String ANDROIDNS = "http://schemas.android.com/apk/res/android";
-    private static final String AICPEXTRAS = "http://schemas.android.com/apk/res/com.lordclockan.aicpextras";
+    private static final String AICPEXTRAS = "http://schemas.android.com/apk/res-auto";
     private static final int DEFAULT_VALUE = 50;
 
     private int mMaxValue      = 100;
@@ -33,8 +39,12 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
     private String mUnitsRight = "";
     private SeekBar mSeekBar;
     private TextView mTitle;
+    private ImageView mImagePlus;
+    private ImageView mImageMinus;
+    private Drawable mProgressThumb;
 
     private TextView mStatusText;
+    private TextView textView;
 
     public SeekBarPreferenceCham(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -47,18 +57,29 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
     }
 
     private void initPreference(Context context, AttributeSet attrs) {
-        setValuesFromXml(attrs);
+        setValuesFromXml(attrs, context);
         mSeekBar = new SeekBar(context, attrs);
         mSeekBar.setMax(mMaxValue - mMinValue);
         mSeekBar.setOnSeekBarChangeListener(this);
     }
 
-    private void setValuesFromXml(AttributeSet attrs) {
+    private void setValuesFromXml(AttributeSet attrs, Context context) {
+        final TypedArray a = context.obtainStyledAttributes(
+                attrs, R.styleable.SeekBarPreference);
+
         mMaxValue = attrs.getAttributeIntValue(ANDROIDNS, "max", 100);
         mMinValue = attrs.getAttributeIntValue(AICPEXTRAS, "minimum", 0);
         mDefaultValue = attrs.getAttributeIntValue(AICPEXTRAS, "defaultVal", -1);
         mUnitsLeft = getAttributeStringValue(attrs, AICPEXTRAS, "unitsLeft", "");
         mUnitsRight = getAttributeStringValue(attrs, AICPEXTRAS, "unitsRight", "");
+        Integer idR = a.getResourceId(R.styleable.SeekBarPreference_unitsRight, 0);
+        if (idR > 0) {
+            mUnitsRight = context.getResources().getString(idR);
+        }
+        Integer idL = a.getResourceId(R.styleable.SeekBarPreference_unitsLeft, 0);
+        if (idL > 0) {
+            mUnitsLeft = context.getResources().getString(idL);
+        }
         try {
             String newInterval = attrs.getAttributeValue(AICPEXTRAS, "interval");
             if(newInterval != null)
@@ -85,16 +106,52 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
             mTitle.setEnabled(!disableDependent);
         if (mSeekBar != null)
             mSeekBar.setEnabled(!disableDependent);
+        if (mImagePlus != null)
+            mImagePlus.setEnabled(!disableDependent);
+        if (mImageMinus != null)
+            mImageMinus.setEnabled(!disableDependent);
     }
 
     @Override
     protected View onCreateView(ViewGroup parent){
+        super.onCreateView(parent);
 
         RelativeLayout layout =  null;
         try {
             LayoutInflater mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             layout = (RelativeLayout)mInflater.inflate(R.layout.seek_bar_preference, parent, false);
             mTitle = (TextView) layout.findViewById(android.R.id.title);
+            mImagePlus = (ImageView) layout.findViewById(R.id.imagePlus);
+            mImagePlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSeekBar.setProgress((mCurrentValue + mInterval) - mMinValue);
+                }
+            });
+            mImagePlus.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    mSeekBar.setProgress((mCurrentValue + (mMaxValue-mMinValue)/10) - mMinValue);
+                    return true;
+                }
+            });
+            mImageMinus = (ImageView) layout.findViewById(R.id.imageMinus);
+            mImageMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSeekBar.setProgress((mCurrentValue - mInterval) - mMinValue);
+                }
+            });
+            mImageMinus.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    mSeekBar.setProgress((mCurrentValue - (mMaxValue-mMinValue)/10) - mMinValue);
+                    return true;
+                }
+            });
+            mProgressThumb = mSeekBar.getThumb();
+            textView = (TextView) layout.findViewById(R.id.value);
+            textView.setVisibility(View.GONE);
         }
         catch(Exception e)
         {
@@ -169,11 +226,30 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
         }
         // change accepted, store it
         mCurrentValue = newValue;
-        if (mCurrentValue == mDefaultValue && mDefaultValue != -1)
+        if (mCurrentValue == mDefaultValue && mDefaultValue != -1) {
             mStatusText.setText(R.string.default_string);
-        else
+            int redColor = getContext().getResources().getColor(R.color.seekbar_dot_color);
+            mProgressThumb.setColorFilter(redColor, PorterDuff.Mode.SRC_IN);
+        } else {
             mStatusText.setText(String.valueOf(newValue));
-        persistInt(newValue);
+            mProgressThumb.clearColorFilter();
+        }
+
+        if (fromUser) {
+            textView.setVisibility(View.VISIBLE);
+            RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            p.addRule(RelativeLayout.ABOVE, seekBar.getId());
+            Rect thumbRect = getSeekBarThumb().getBounds();
+            p.setMargins(
+                    thumbRect.centerX() + 76, 0, 0, 0);
+            textView.setLayoutParams(p);
+            textView.setText(mUnitsLeft + String.valueOf(progress) + mUnitsRight);
+            persistInt(newValue);
+        } else {
+            textView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -210,5 +286,9 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
 
     public void setValue(int value) {
         mCurrentValue = value;
+    }
+
+    public Drawable getSeekBarThumb() {
+        return mProgressThumb;
     }
 }

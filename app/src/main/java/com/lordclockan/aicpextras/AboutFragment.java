@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,10 +14,14 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.animation.AccelerateInterpolator;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
+
+import com.plattysoft.leonids.ParticleSystem;
 
 //import android.os.SystemProperties;
 
@@ -47,6 +53,7 @@ public class AboutFragment extends Fragment {
         private static final File sdCardDirectory = Environment.getExternalStorageDirectory();
         private static final File logcatFile = new File(sdCardDirectory, "aicp_logcat.txt");
         private static final File hasteKey = new File(sdCardDirectory, "haste_key");
+        private String PREF_AICP_SPARKLE = "aicp_logcat_sparkle";
 
         private String mDeviceName;
 
@@ -55,6 +62,8 @@ public class AboutFragment extends Fragment {
         private Preference mAicpGerrit;
         private Preference mAicpChangeLog;
         private Preference mAicpLogcat;
+        private Preference mAicpLogcatSparkle;
+
 
         public SettingsPreferenceFragment() {
         }
@@ -76,6 +85,7 @@ public class AboutFragment extends Fragment {
             mAicpGerrit = prefSet.findPreference(PREF_AICP_GERRIT);
             mAicpChangeLog = prefSet.findPreference(PREF_AICP_CHANGELOG);
             mAicpLogcat = prefSet.findPreference(PREF_AICP_LOGCAT);
+            mAicpLogcatSparkle = prefSet.findPreference(PREF_AICP_SPARKLE);
 
         }
 
@@ -104,6 +114,30 @@ public class AboutFragment extends Fragment {
             } else if (preference == mAicpLogcat) {
                // readHasteKey(getContext(), HASTE_KEY);
                 logcatDialog();
+            } else if (preference == mAicpLogcatSparkle) {
+                Random rand = new Random();
+
+
+                int firstRandom = rand.nextInt(91 - 0);
+                int secondRandom = rand.nextInt(181 - 90) + 90;
+                int thirdRandom = rand.nextInt(181 - 0);
+
+                // Let's color the star randomly
+                Drawable star = super.getResources().getDrawable(R.drawable.star_white_border, null);
+                int randomColor;
+                randomColor = Color.rgb(
+                        Color.red(rand.nextInt(0xFFFFFF)),
+                        Color.green(rand.nextInt(0xFFFFFF)),
+                        Color.blue(rand.nextInt(0xFFFFFF)));
+                star.setTint(randomColor);
+
+                ParticleSystem ps = new ParticleSystem(getActivity(), 100, star, 3000);
+                ps.setScaleRange(0.7f, 1.3f);
+                ps.setSpeedRange(0.1f, 0.25f);
+                ps.setAcceleration(0.0001f, thirdRandom);
+                ps.setRotationSpeedRange(firstRandom, secondRandom);
+                ps.setFadeOut(200, new AccelerateInterpolator());
+                ps.oneShot(this.getView(), 100);
             } else {
                 return super.onPreferenceTreeClick(preferenceScreen, preference);
             }

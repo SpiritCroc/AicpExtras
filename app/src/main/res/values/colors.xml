@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303d89</color>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#ffab00</color>
     <color name="overlayBackground">#00ffffff</color>
-    <color name="itemIconTint">#ffab00</color>
     <color name="navDrawerBg">#60000000</color>
+    <color name="navDrawerText">@android:color/white</color>
+    <color name="navDrawerTextChecked">@color/colorAccent</color>
 
 
     <color name="background_material_dark">#FF303030</color>
@@ -14,4 +15,6 @@
     <color name="primary_text_material_light">#DE000000</color>
     <color name="secondary_text_material_dark">#B3FFFFFF</color>
     <color name="secondary_text_material_light">#8A000000</color>
+
+    <color name="seekbar_dot_color">@color/colorPrimary</color>
 </resources>
