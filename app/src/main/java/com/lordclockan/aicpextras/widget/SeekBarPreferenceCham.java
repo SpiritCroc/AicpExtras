@@ -258,7 +258,7 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
                 toast = Toast.makeText(getContext(), "", Toast.LENGTH_LONG);
             }
             toast.setText(mUnitsLeft + String.valueOf(progress) + mUnitsRight);
-            toast.setGravity(Gravity.LEFT, thumbRect.centerX(), thumbRect.centerY());
+            toast.setGravity(Gravity.CENTER, 0, thumbRect.centerY());
             //toast.cancel();
             //toast.getView().post(new Runnable() {
             //    @Override
