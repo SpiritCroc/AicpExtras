@@ -30,5 +30,31 @@
         android:key="aicp_logcat_sparkle"
         android:title="@string/logcat_title" />
 
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
+    <com.lordclockan.aicpextras.widget.SeekBarPreferenceCham />
+
 
 </PreferenceScreen>
