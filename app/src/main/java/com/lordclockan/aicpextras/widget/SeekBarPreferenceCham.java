@@ -239,33 +239,13 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
         }
 
         if (fromUser) {
-            //textView.setVisibility(View.VISIBLE);
-            RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            p.addRule(RelativeLayout.ABOVE, seekBar.getId());
-            Rect thumbRect = getSeekBarThumb().getBounds();
-            /*
-            p.setMargins(
-                    thumbRect.centerX() + 76, 0, 0, 0);
-            textView.setLayoutParams(p);
-            textView.setText(mUnitsLeft + String.valueOf(progress) + mUnitsRight);
-            */
-            //if (toast != null) {
-            //    toast.cancel();
-            //}
             if (toast == null) {
                 toast = Toast.makeText(getContext(), "", Toast.LENGTH_LONG);
             }
+            int[] loc = new int[2];
+            seekBar.getLocationInWindow(loc);
             toast.setText(mUnitsLeft + String.valueOf(progress) + mUnitsRight);
-            toast.setGravity(Gravity.CENTER, 0, thumbRect.centerY());
-            //toast.cancel();
-            //toast.getView().post(new Runnable() {
-            //    @Override
-            //    public void run() {
-            //        toast.show();
-            //    }
-            //});
+            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP, 0, loc[1]-180);//todo: 180: stylable attr?
             toast.show();
             persistInt(newValue);
         } else {
