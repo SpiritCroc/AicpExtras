@@ -49,6 +49,7 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
 
     private TextView mStatusText;
     private TextView textView;
+    private boolean tracking = false;
     private boolean added = false;
 
     public SeekBarPreferenceCham(Context context, AttributeSet attrs) {
@@ -155,10 +156,7 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
                 }
             });
             mProgressThumb = mSeekBar.getThumb();
-            //textView = (TextView) layout.findViewById(R.id.value);
-            //textView.setVisibility(View.GONE);
-            textView = new TextView(getContext());
-            textView.setTextSize(30);
+            textView = (TextView) mInflater.inflate(R.layout.seek_bar_value_popup, null, false);
         }
         catch(Exception e)
         {
@@ -243,41 +241,65 @@ public class SeekBarPreferenceCham extends Preference implements OnSeekBarChange
         }
 
         if (fromUser) {
-            //textView.setVisibility(View.VISIBLE);
-            RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            //p.addRule(RelativeLayout.ABOVE, seekBar.getId());
-            Rect thumbRect = getSeekBarThumb().getBounds();
-            //p.setMargins(
-            //        thumbRect.centerX() + 76, 0, 0, 0);
-            //textView.setLayoutParams(p);
-            textView.setText(mUnitsLeft + String.valueOf(progress) + mUnitsRight);
-            WindowManager.LayoutParams wp = new WindowManager.LayoutParams(WindowManager.LayoutParams.FIRST_SUB_WINDOW);
-            wp.format = PixelFormat.RGBA_8888;
-            wp.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
-            //wp.gravity = Gravity.CENTER;
-            wp.x = thumbRect.centerX();
-            wp.y = thumbRect.centerY();
-            //wp.horizontalMargin = 0.4f;
-            //wp.verticalMargin = 0.4f;
-            if (!added)
-                ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).addView(textView, wp);
-            added = true;
-            textView.setLayoutParams(wp);
-            textView.invalidate();
+            startUpdateViewValue();
             persistInt(newValue);
         } else {
-            //textView.setVisibility(View.GONE);
+            stopUpdateViewValue();
         }
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        startUpdateViewValue();
+        tracking = true;
+    }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         notifyChanged();
+        stopUpdateViewValue();
+        tracking = false;
+    }
+
+    private void startUpdateViewValue() {
+        if (!tracking) return;
+        Rect thumbRect = getSeekBarThumb().getBounds();
+        int[] seekbarPos = new int[2];
+        int[] offsetPos = new int[2];
+        mSeekBar.getLocationInWindow(seekbarPos);
+        View mainContentView = mSeekBar.getRootView().findViewById(R.id.content_main);
+        if (mainContentView == null) {
+            Log.w(TAG, "Could not find main content view to calculate value view offset");
+            offsetPos[0] = 0;
+            offsetPos[1] = 0;
+        } else {
+            mainContentView.getLocationInWindow(offsetPos);
+        }
+        textView.setText(mUnitsLeft + mCurrentValue + mUnitsRight);
+        WindowManager.LayoutParams wp = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.TYPE_APPLICATION,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                PixelFormat.TRANSLUCENT);
+        wp.gravity = Gravity.LEFT | Gravity.TOP;
+        wp.x = thumbRect.centerX() + seekbarPos[0] - offsetPos[0] + (int) getContext().getResources().getDimension(R.dimen.seek_bar_preference_cham_x_offset);
+        wp.y = seekbarPos[1] - offsetPos[1] + (int) getContext().getResources().getDimension(R.dimen.seek_bar_preference_cham_y_offset);
+        textView.setLayoutParams(wp);
+        if (added) {
+            wp = (WindowManager.LayoutParams) textView.getLayoutParams();
+            ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).updateViewLayout(textView, wp);
+        } else {
+            ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).addView(textView, wp);
+            added = true;
+        }
+        textView.setVisibility(View.VISIBLE);
+    }
+
+    private void stopUpdateViewValue() {
+        if (!added) return;
+        ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).removeView(textView);
+        added = false;
     }
 
     @Override
